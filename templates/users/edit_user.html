@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body_class %}onboarding{% endblock %}
+
+{% block content %} 
+
+<h1>Update Profile Information</h1>
+<p><i>Note: </i>You must provide your password to update any user details. If a field is left blank, the associated information will not be updated.</p>
+
+<form action="/users/profile" method="post">
+    
+    {{ form.hidden_tag() }}
+
+        {% for field in form
+                    if field.widget.input_type != 'hidden' %}
+        
+            <p>
+                {{ field.label }}
+                {{ field }}
+
+                {% for error in field.errors %}
+                    {{ error }}
+                {% endfor %}
+            </p>
+
+        {% endfor %}
+        <button type="submit">Update Information</button>
+
+</form>
+
+<a href="/users/{{ user.id }}"><button>Go Back</button></a>
+
+{% endblock %} 
